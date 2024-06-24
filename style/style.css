@@ -88,6 +88,15 @@ header{
   display: none;
 }
 
+/* alert */
+.alert{
+  margin-top: 20px;
+  padding: 1em;
+  color: red;
+  border: 1px solid red;
+  border-radius: 10px;
+}
+
 /* section */
 section{
   margin-top: 3rem;

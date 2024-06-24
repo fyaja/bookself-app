@@ -1,7 +1,8 @@
-const books = [];
 const RENDER_EVENT = 'render-todo';
+const DELETED_EVENT = "deleted-books";
 const SAVED_EVENT = 'saved-books';
 const STORAGE_KEY = 'book-apps';
+const books = [];
 
 const titleElement = document.getElementById('book-title-input');
 const authorElement = document.getElementById('book-writer-input');
@@ -12,6 +13,25 @@ const searchInput = document.getElementById('search-input');
 const clearBtn = document.getElementById('clear-search-button');
 
 let search = '';
+
+document.addEventListener(DELETED_EVENT, () => {
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+  alert.innerHTML = "Berhasil <span>Dihapus</span>!";
+
+  document.querySelector('main').insertBefore(alert, document.querySelector('main').children[0]);
+  setTimeout(() => {
+    alert.remove();
+  }, 2000);
+});
+
+const deleteData = () => {
+  if (isStorageExist()) {
+    const parsed = JSON.stringify(books);
+    localStorage.setItem(STORAGE_KEY, parsed);
+    document.dispatchEvent(new Event(DELETED_EVENT));
+  }
+};
 
 searchInput.addEventListener('input', handleSearchInput)
 clearBtn.addEventListener('click', clearSearch)
@@ -220,5 +240,6 @@ function deleteBook(bookId){
   books.splice(bookFound, 1)
 
   document.dispatchEvent(new Event(RENDER_EVENT));
+  deleteData();
   saveData();
 }

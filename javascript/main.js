@@ -1,6 +1,7 @@
 const RENDER_EVENT = 'render-todo';
 const DELETED_EVENT = "deleted-books";
 const SAVED_EVENT = 'saved-books';
+const MOVED_EVENT = 'moved-books';
 const STORAGE_KEY = 'book-apps';
 const books = [];
 
@@ -14,18 +15,35 @@ const clearBtn = document.getElementById('clear-search-button');
 
 let search = '';
 
-document.addEventListener(DELETED_EVENT, () => {
+document.addEventListener(SAVED_EVENT, () => showAlert('Berhasil disimpan!', 'alert-green'));
+document.addEventListener(MOVED_EVENT, () => showAlert('Berhasil pindahkan!', 'alert-blue'));
+document.addEventListener(DELETED_EVENT, () => showAlert('Berhasil Dihapus!', 'alert-red'));
+
+function showAlert(message, className) {
   const alert = document.createElement("div");
-  alert.classList.add("alert");
-  alert.innerHTML = "Berhasil <span>Dihapus</span>!";
+  alert.classList.add("alert", className);
+  alert.innerHTML = message;
 
   document.querySelector('main').insertBefore(alert, document.querySelector('main').children[0]);
-  setTimeout(() => {
-    alert.remove();
-  }, 2000);
-});
+  setTimeout(() => alert.remove(), 2000);
+}
 
-const deleteData = () => {
+function saveData(){
+  if (isStorageExist()) {
+    const parsed = JSON.stringify(books);
+    localStorage.setItem(STORAGE_KEY, parsed);
+  }
+}
+
+function moveData(){
+  if (isStorageExist()) {
+    const parsed = JSON.stringify(books);
+    localStorage.setItem(STORAGE_KEY, parsed);
+    document.dispatchEvent(new Event(MOVED_EVENT));
+  }
+}
+
+function deleteData(){
   if (isStorageExist()) {
     const parsed = JSON.stringify(books);
     localStorage.setItem(STORAGE_KEY, parsed);
@@ -48,17 +66,6 @@ function isStorageExist(){
   return true;
 }
 
-function saveData(){
-  if (isStorageExist()) {
-    const parsed = JSON.stringify(books);
-    localStorage.setItem(STORAGE_KEY, parsed);
-    document.dispatchEvent(new Event(SAVED_EVENT));
-  }
-}
-
-document.addEventListener(SAVED_EVENT, function () {
-  console.log(localStorage.getItem(STORAGE_KEY));
-});
 
 function loadDataFromStorage() {
   const serializedData = localStorage.getItem(STORAGE_KEY);
@@ -74,11 +81,7 @@ function loadDataFromStorage() {
 }
 
 function handleSearchInput() {
-  if (searchInput.value.length > 0) {
-    clearBtn.style.display = 'block';
-  } else {
-    clearBtn.style.display = 'none';
-  }
+  clearBtn.style.display = searchInput.value.length > 0 ? 'block' : 'none';
 }
 
 function clearSearch() {
@@ -103,9 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener(RENDER_EVENT, () => {
   const unreadBooks = document.getElementById('unread-books');
-  unreadBooks.innerHTML = '';
-
   const readBooks = document.getElementById('read-books');
+  unreadBooks.innerHTML = '';
   readBooks.innerHTML = '';
 
   const booksFiltered = books.filter(
@@ -114,7 +116,7 @@ document.addEventListener(RENDER_EVENT, () => {
 
   for(const book of booksFiltered){
     const bookElement = makeBook(book);
-    if(!book.isCompleted){
+    if(!book.isComplete){
       unreadBooks.appendChild(bookElement);
     } else {
       readBooks.appendChild(bookElement);
@@ -126,20 +128,20 @@ function generateId(){
   return +new Date();
 }
 
-function createObject(id, title, author, year, isCompleted){
+function createObject(id, title, author, year, isComplete){
   return {
     id,
     title,
     author,
     year,
-    isCompleted
+    isComplete
   }
 }
 
 function addBook(){
   const title = titleElement.value;
   const author = authorElement.value;
-  const year = yearElement.value.slice(0, 4);
+  const year = Number(yearElement.value);
   const checkBox = checkBoxElement.checked;
   
   const id = generateId();
@@ -149,6 +151,7 @@ function addBook(){
   books.push(bookObject);
 
   document.dispatchEvent(new Event(RENDER_EVENT));
+  document.dispatchEvent(new Event(SAVED_EVENT));
   saveData();
   
   titleElement.value = ''
@@ -173,7 +176,7 @@ function makeBook(bookObject){
   textDiv.append(textTitle, textAuthor, textYear);
 
   let checkOrUndo;
-  if (bookObject.isCompleted) {
+  if (bookObject.isComplete) {
     const undoButton = document.createElement('button');
     undoButton.innerHTML = `<i class="ri-arrow-go-back-line"></i>`
     undoButton.classList.add('undo');
@@ -217,9 +220,10 @@ function checkBook(bookId) {
  
   if (bookFound == null) return;
  
-  bookFound.isCompleted = true;
+  bookFound.isComplete = true;
   document.dispatchEvent(new Event(RENDER_EVENT));
-
+  document.dispatchEvent(new Event(MOVED_EVENT));
+  
   saveData();
 }
 
@@ -227,8 +231,9 @@ function undoBook(bookId){
   const bookFound = findBook(bookId)
   if (bookFound == null) return;
  
-  bookFound.isCompleted = false;
+  bookFound.isComplete = false;
   document.dispatchEvent(new Event(RENDER_EVENT));
+  document.dispatchEvent(new Event(MOVED_EVENT));
   saveData();
 }
 

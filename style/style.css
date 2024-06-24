@@ -90,11 +90,27 @@ header{
 
 /* alert */
 .alert{
-  margin-top: 20px;
+  margin-top: 3rem;
   padding: 1em;
-  color: red;
-  border: 1px solid red;
   border-radius: 10px;
+}
+
+.alert-red{  
+  color: red;
+  background-color: rgb(255, 226, 226);
+  border: 1px solid red;
+}
+
+.alert-green{  
+  color: green;
+  background-color: rgb(223, 255, 223);
+  border: 1px solid green;
+}
+
+.alert-blue{  
+  color: var(--background);
+  border: 1px solid var(--background);
+  background-color: rgb(238, 238, 255);
 }
 
 /* section */

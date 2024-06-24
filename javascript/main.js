@@ -89,9 +89,7 @@ document.addEventListener(RENDER_EVENT, () => {
   readBooks.innerHTML = '';
 
   const booksFiltered = books.filter(
-    book => book.title.toLowerCase().includes(search) ||
-    book.author.toLowerCase().includes(search) ||
-    book.year.toLowerCase().includes(search)
+    book => book.title.toLowerCase().includes(search)
   );
 
   for(const book of booksFiltered){
@@ -132,7 +130,7 @@ function addBook(){
 
   document.dispatchEvent(new Event(RENDER_EVENT));
   saveData();
-  // clear value
+  
   titleElement.value = ''
   authorElement.value = ''
   yearElement.value = ''

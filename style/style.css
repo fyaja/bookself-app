@@ -43,7 +43,7 @@ header{
   display: flex;
 }
 
-.header-container #search-btn{
+.search-div #search-btn{
   font-size: 1.2rem;
   color: var(--primary);
   background-color: var(--text);
@@ -54,26 +54,42 @@ header{
   margin-left: -1px;
 }
 
-.header-container #search-btn:hover{
+.search-div #search-btn:hover{
   color: rgb(215, 215, 215);
   background-color: rgb(27, 27, 27);
 }
 
-.header-container #search-input{
+.search-container{
+  position: relative;
+  display: flex;
+}
+
+.search-container #search-input{
   max-width: 500px;
-  padding-left: 1rem;
+  padding: 0.3em 1em;
   border: none;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
 
-.header-container #search-input:focus{
+.search-container #search-input:focus{
   outline: none;
   background-color: rgb(238, 238, 255);
 }
 
-/* main */
-main{
+.search-container #clear-search-button{
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: none;
+}
+
+/* section */
+section{
   margin-top: 3rem;
   display: flex;
   gap: 1rem;
@@ -89,7 +105,8 @@ main{
 
 .addbook-div h2, .book-div h2{
   font-size: 1.5rem;
-  margin-bottom: 20px;
+  line-height: 1.1em;
+  margin-bottom: 10px;
   color: var(--text);
 }
 
@@ -107,6 +124,10 @@ form input{
   border: 1px solid var(--text);
   font-size: 1rem;
   padding: 0.5em 1em;
+}
+
+form input::placeholder{
+  font-size: 1rem;
   color: var(--text);
 }
 
@@ -168,8 +189,10 @@ form button:hover{
   justify-content: space-between;
   padding: 1em;
   border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--background);
+  background-color: rgb(244, 244, 255);
   color: var(--font);
+  margin-top: 20px;
 }
 
 .read-container .buttons{
@@ -200,22 +223,18 @@ form button:hover{
 /* responsive */
 @media screen and (max-width: 768px) {
   html{
-    font-size: 70%;
+    font-size: 80%;
   }
 }
 
 @media screen and (max-width: 568px) {
-  html{
-    font-size: 80%;
-  }
-
   .header-container{
     justify-content: flex-start;
     gap: 1rem;
     flex-wrap: wrap;
   }
 
-  .header-container .search-div, .content-right{
+  .header-container .search-div, .content-right, .search-container{
     flex: 1;
   }
 
@@ -224,7 +243,7 @@ form button:hover{
     flex: 1;
   }
 
-  main{
+  section{
     flex-direction: column;
   }
 

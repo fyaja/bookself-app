@@ -5,26 +5,55 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bookself-app-sederhana</title>
-  <!-- CSS -->
-  <link rel="stylesheet" href="styles/style.css">
   <!-- ICON -->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+  <!-- FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <!-- CSS -->
+  <link rel="stylesheet" href="style/style.css">
 </head>
 
 <body>
   <header>
-    <div class="logo">Bookself Apps</div>
+    <div class="container header-container">
+      <h1 class="logo">Bookself Apps</h1>
+      <div class="search-div">
+        <input type="text" id="search-input" placeholder="Cari buku">
+        <button id="search-btn">
+          <i class="ri-search-line"></i>
+        </button>
+      </div>
+    </div>
   </header>
 
-  <div class="container">
-    <form class="form" id="form">
-      <input type="text" id="form-input">
-      <input type="text" id="form-input">
-      <input type="text" id="form-input">
-      <button></button>
-    </form>
-  </div>
+  <main class="container">
+    <div class="addbook-div">
+      <h2>Tambah Buku Baru</h2>
+      <form class="form" id="form">
+        <input type="text" id="book-title-input" placeholder="Masukan Judul Buku">
+        <input type="text" id="book-writer-input" placeholder="Masukan Penulis Buku">
+        <input type="number" id="publication-year-input" placeholder="Masukan Tahun terbit Buku">
+        <div class="check-box">
+          <input type="checkbox" id="check-box-input">
+          <p>Sudah dibaca</p>
+        </div>
+        <button>Simpan</button>
+      </form>
+    </div>
 
+    <div class="content-right">
+      <div class="book-div">
+        <h2>Belum Dibaca</h2>
+      </div>
+      <div class="book-div">
+        <h2>Sudah Dibaca</h2>
+      </div>
+    </div>
+  </main>
   <script src="javascript/main.js"></script>
 </body>
 

@@ -1,0 +1,33 @@
+<div class="read-container">
+  <div class="book-desc">
+    <h3>Judul Buku</h3>
+    <p>Penulis</p>
+    <p>Tahun</p>
+  </div>
+
+  <div class="buttons">
+    <button class="check">
+      <i class="ri-check-line"></i>
+    </button>
+    <button class="delete">
+      <i class="ri-delete-bin-line"></i></i>
+    </button>
+  </div>
+</div>
+
+<div class="read-container">
+  <div class="book-desc">
+    <h3>Judul Buku</h3>
+    <p>Penulis</p>
+    <p>Tahun</p>
+  </div>
+
+  <div class="buttons">
+    <button class="undo">
+      <i class="ri-arrow-go-back-line"></i>
+    </button>
+    <button class="delete">
+      <i class="ri-delete-bin-line"></i></i>
+    </button>
+  </div>
+</div>

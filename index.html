@@ -22,7 +22,12 @@
     <div class="container header-container">
       <h1 class="logo">Bookself Apps</h1>
       <div class="search-div">
-        <input type="text" id="search-input" placeholder="Cari buku">
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Cari buku">
+          <button id="clear-search-button">
+            <i class="ri-close-line"></i>
+          </button>
+        </div>
         <button id="search-btn">
           <i class="ri-search-line"></i>
         </button>
@@ -31,28 +36,32 @@
   </header>
 
   <main class="container">
-    <div class="addbook-div">
-      <h2>Tambah Buku Baru</h2>
-      <form class="form" id="form">
-        <input type="text" id="book-title-input" placeholder="Masukan Judul Buku">
-        <input type="text" id="book-writer-input" placeholder="Masukan Penulis Buku">
-        <input type="number" id="publication-year-input" placeholder="Masukan Tahun terbit Buku">
-        <div class="check-box">
-          <input type="checkbox" id="check-box-input">
-          <p>Sudah dibaca</p>
-        </div>
-        <button>Simpan</button>
-      </form>
-    </div>
+    <section>
+      <div class="addbook-div">
+        <h2>Tambah Buku Baru</h2>
+        <form class="form" id="form">
+          <input type="text" id="book-title-input" placeholder="Masukan Judul Buku" required>
+          <input type="text" id="book-writer-input" placeholder="Masukan Penulis Buku" required>
+          <input type="number" id="publication-year-input" placeholder="Masukan Tahun terbit Buku" required>
+          <div class="check-box">
+            <input type="checkbox" id="check-box-input">
+            <p>Sudah dibaca</p>
+          </div>
+          <button type="submit">Simpan</button>
+        </form>
+      </div>
 
-    <div class="content-right">
-      <div class="book-div">
-        <h2>Belum Dibaca</h2>
+      <div class="content-right">
+        <div class="book-div">
+          <h2>Belum Dibaca</h2>
+          <div id="unread-books"></div>
+        </div>
+        <div class="book-div">
+          <h2>Sudah Dibaca</h2>
+          <div id="read-books"></div>
+        </div>
       </div>
-      <div class="book-div">
-        <h2>Sudah Dibaca</h2>
-      </div>
-    </div>
+    </section>
   </main>
   <script src="javascript/main.js"></script>
 </body>

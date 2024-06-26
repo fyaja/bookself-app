@@ -2,6 +2,7 @@ const RENDER_EVENT = 'render-todo';
 const DELETED_EVENT = "deleted-books";
 const SAVED_EVENT = 'saved-books';
 const MOVED_EVENT = 'moved-books';
+
 const STORAGE_KEY = 'book-apps';
 const books = [];
 
@@ -222,8 +223,7 @@ function checkBook(bookId) {
  
   bookFound.isComplete = true;
   document.dispatchEvent(new Event(RENDER_EVENT));
-  document.dispatchEvent(new Event(MOVED_EVENT));
-  
+  moveData();
   saveData();
 }
 
@@ -233,7 +233,7 @@ function undoBook(bookId){
  
   bookFound.isComplete = false;
   document.dispatchEvent(new Event(RENDER_EVENT));
-  document.dispatchEvent(new Event(MOVED_EVENT));
+  moveData();
   saveData();
 }
 
